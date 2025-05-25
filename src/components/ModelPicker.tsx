@@ -15,7 +15,7 @@ function ModelPicker({ models }: IModels) {
           <button
             key={model}
             onClick={() => setSelectedModel(model)}
-            className={`w-12 aspect-square flex items-center justify-center rounded-md border text-sm font-medium transition-all duration-300
+            className={`w-12 cursor-pointer aspect-square flex items-center justify-center rounded-md border text-sm font-medium transition-all duration-300
                 ${
                   selectedModel === model
                     ? "border-purple-500 ring-2 ring-purple-300 bg-purple-50 scale-105"

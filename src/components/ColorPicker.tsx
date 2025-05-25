@@ -15,7 +15,7 @@ function ColorPicker({ colors }: IColors) {
           <button
             key={color}
             onClick={() => setSelectedColor(color)}
-            className={`w-7 h-7 rounded-full transition-all duration-300 ${
+            className={`w-7 h-7 cursor-pointer rounded-full transition-all duration-300 ${
               selectedColor === color
                 ? "ring-2 ring-offset-2 ring-purple-400 scale-110"
                 : "border-gray-300"
