@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 function ProductItem() {
   return (
     <div className="shadow-sm rounded-md p-3">
@@ -13,9 +15,9 @@ function ProductItem() {
         <span>Product Price $</span>
       </div>
       <div className="flex flex-row-reverse">
-        <button className="bg-emerald-400 py-2 px-3 rounded cursor-pointer hover:shadow-lg hover:bg-emerald-600">
+        <Button variant="primary" onClick={(e) => e.stopPropagation()}>
           Add To Cart
-        </button>
+        </Button>
       </div>
     </div>
   );

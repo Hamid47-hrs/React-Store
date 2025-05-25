@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import ColorPicker from "../components/ColorPicker";
 import ModelPicker from "../components/ModelPicker";
 import CartAmount from "../components/CartAmount";
+import Button from "../components/Button";
 
 function SingleProduct() {
   const params = useParams();
@@ -14,7 +15,9 @@ function SingleProduct() {
   ];
   return (
     <div>
-      <div className="mb-7">"Bread Crums {params.id}"</div>
+      <div className="mb-7">
+        <span>"Bread Crums {params.id}"</span>
+      </div>
       <div className="flex flex-wrap md:flex-nowrap gap-10">
         <div className="w-full md:w-1/6 p-3">
           {gallery.map((image) => (
@@ -46,9 +49,7 @@ function SingleProduct() {
           <hr className="my-5 text-zinc-200 text-shadow-lg" />
           <div className="flex items-center">
             <CartAmount number={1} />
-            <button className="m-4 px-4 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-800">
-              Add to Cart
-            </button>
+            <Button variant="secondary">Add To Cart</Button>
           </div>
         </div>
       </div>
