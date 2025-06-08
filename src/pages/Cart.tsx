@@ -1,0 +1,122 @@
+import { ShoppingBag } from "lucide-react";
+import CartItem from "../components/CartItem";
+import Button from "../components/Button";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import SignupForm from "../components/SignupForm";
+
+function Cart() {
+  const productInfo = [
+    {
+      id: 1,
+      productImage:
+        "https://cdn3d.iconscout.com/3d/premium/thumb/product-3d-icon-download-in-png-blend-fbx-gltf-file-formats--tag-packages-box-marketing-advertisement-pack-branding-icons-4863042.png?f=webp",
+      productName: "harry potter",
+      productCategory: "book fiction",
+      productPrice: 20.0,
+      productQuantity: 1,
+    },
+    {
+      id: 1,
+      productImage:
+        "https://cdn3d.iconscout.com/3d/premium/thumb/product-3d-icon-download-in-png-blend-fbx-gltf-file-formats--tag-packages-box-marketing-advertisement-pack-branding-icons-4863042.png?f=webp",
+      productName: "asuz H500",
+      productCategory: "device lap top",
+      productPrice: 20.0,
+      productQuantity: 1,
+    },
+    {
+      id: 1,
+      productImage:
+        "https://cdn3d.iconscout.com/3d/premium/thumb/product-3d-icon-download-in-png-blend-fbx-gltf-file-formats--tag-packages-box-marketing-advertisement-pack-branding-icons-4863042.png?f=webp",
+      productName: "Tshirt",
+      productCategory: "cloth Tshirt",
+      productPrice: 20.0,
+      productQuantity: 1,
+    },
+  ];
+
+  const [accepted, setAccepted] = useState(false);
+
+  return (
+    <div>
+      <div className="flex mb-7 justify-center items-center gap-5">
+        <h1 className="text-3xl drop-shadow-xs drop-shadow-gray-700">
+          Your Shopping Cart
+        </h1>
+        <ShoppingBag className="text-3xl drop-shadow-xs drop-shadow-gray-700" />
+      </div>
+      <div className="flex flex-wrap md:flex-nowrap gap-5">
+        <div className="w-full md:w-2/3 p-3">
+          <h3>Cart Items</h3>
+          <div>
+            <div className="flex flex-wrap md:flex-nowrap my-3 p-3 bg-gray-100 rounded-sm font-bold text-gray-500">
+              <div className="md:w-1/2">
+                <span>Product</span>
+              </div>
+              <div className="md:w-1/6">
+                <span>Price</span>
+              </div>
+              <div className="md:w-1/6">
+                <span>Quantity</span>
+              </div>
+              <div className="md:w-1/6">
+                <span>Total</span>
+              </div>
+            </div>
+            {productInfo.map((info) => (
+              <CartItem key={info.id} productInfo={info} />
+            ))}
+          </div>
+          <div className="p-2">
+            <SignupForm />
+          </div>
+        </div>
+        <div className="w-full md:w-1/3 p-6 bg-gray-100 rounded-lg shadow-lg">
+          <div className="text-center mb-10">
+            <span className="text-2xl">Check Out</span>
+          </div>
+          <div className="flex flex-col gap-5">
+            <div className="grid grid-cols-3">
+              <span>Total Quantity : </span>
+              <span className="text-gray-500">3 items</span>
+            </div>
+            <div className="grid grid-cols-3">
+              <span>Total Price : </span>
+              <span className="text-gray-500">$ 450.00</span>
+            </div>
+            <div className="grid grid-cols-3">
+              <span>Total Discount : </span>
+              <span className="text-gray-500">$ 0.00</span>
+            </div>
+            <div className="flex justify-between p-5">
+              <span className="font-bold text-lg">Total Payment Price : </span>
+              <span className="font-bold text-lg">$ 450.00</span>
+            </div>
+          </div>
+          <div className="flex items-start my-4">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={accepted}
+              onChange={() => setAccepted(!accepted)}
+              className="mr-1 mt-0.5 w-4 h-4 border border-gray-300 "
+            />
+            <span className="text-gray-500">
+              I agree with the{" "}
+              <Link to="/terms" className="text-blue-600 hover:underline">
+                terms and conditions
+              </Link>
+              .
+            </span>
+          </div>
+          <div className="grid items-center mt-10">
+            <Button variant="success">Checkout</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Cart;

@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import PageContainer from "./components/PageContainer";
 import PageNotFound from "./pages/PageNotFound";
 import SingleProduct from "./pages/SingleProduct";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/product">
             <Route index path=":id" element={<SingleProduct />} />
           </Route>
+          <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </PageContainer>
