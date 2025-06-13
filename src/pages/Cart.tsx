@@ -10,6 +10,7 @@ import type {
   EnrichedCartProduct,
   IProductType,
 } from "../types/types";
+import Loading from "../components/Loading";
 
 function Cart() {
   const [cartItems, setCartItems] = useState<EnrichedCartProduct[]>([]);
@@ -44,8 +45,27 @@ function Cart() {
     fetchCartData();
   }, []);
 
+  const handleQuantityChange = (productId: number, delta: number) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.product.id === productId
+          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+          : item
+      )
+    );
+  };
+
+  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.quantity * item.product.price,
+    0
+  );
+
+  const totalDiscount = 20;
+  const finalPrice = totalPrice - totalDiscount;
+
   // !Loading ...
-  if (loading) return <center>Loading ...</center>;
+  if (loading) return <Loading />;
 
   return (
     <div>
@@ -74,7 +94,14 @@ function Cart() {
               </div>
             </div>
             {cartItems.map(({ product, quantity }, index) => (
-              <CartItem key={index} product={product} quantity={quantity} />
+              <CartItem
+                key={index}
+                product={product}
+                quantity={quantity}
+                onQuantityChange={(delta) =>
+                  handleQuantityChange(product.id, delta)
+                }
+              />
             ))}
           </div>
           <div className="p-2">
@@ -88,19 +115,21 @@ function Cart() {
           <div className="flex flex-col gap-5">
             <div className="grid grid-cols-3">
               <span>Total Quantity : </span>
-              <span className="text-gray-500">3 items</span>
+              <span className="text-gray-500">{totalQuantity} items</span>
             </div>
             <div className="grid grid-cols-3">
               <span>Total Price : </span>
-              <span className="text-gray-500">$ 450.00</span>
+              <span className="text-gray-500">$ {totalPrice.toFixed(2)}</span>
             </div>
             <div className="grid grid-cols-3">
               <span>Total Discount : </span>
-              <span className="text-gray-500">$ 0.00</span>
+              <span className="text-gray-500">$ {totalDiscount}</span>
             </div>
             <div className="flex justify-between p-5">
-              <span className="font-bold text-lg">Total Payment Price : </span>
-              <span className="font-bold text-lg">$ 450.00</span>
+              <span className="font-bold text-lg">Final Price : </span>
+              <span className="font-bold text-lg">
+                $ {finalPrice.toFixed(2)}
+              </span>
             </div>
           </div>
           <div className="flex items-start my-4">

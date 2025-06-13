@@ -3,6 +3,7 @@ import ProductItem from "../components/ProductItem";
 import { useEffect, useState } from "react";
 import type { IProductType } from "../types/types";
 import { API_ROUTES } from "../services/apiRoutes";
+import Loading from "../components/Loading";
 
 function Store() {
   const [productData, setProductData] = useState<IProductType[]>([]);
@@ -29,7 +30,7 @@ function Store() {
     navigate(`/product/${id}`);
   };
 
-  if (loading) return <center>Loading ...</center>;
+  if (loading) return <Loading />;
   return (
     <div>
       <h1 className="text-shadow-2xs">Products List</h1>
