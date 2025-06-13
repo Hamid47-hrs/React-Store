@@ -1,24 +1,47 @@
 import { useNavigate } from "react-router-dom";
 import ProductItem from "../components/ProductItem";
+import { useEffect, useState } from "react";
+import type { IProductType } from "../types/types";
+import { API_ROUTES } from "../services/apiRoutes";
 
 function Store() {
+  const [productData, setProductData] = useState<IProductType[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await fetch(API_ROUTES.GET_ALL_PRODUCTS);
+        const fetchedProductData = await result.json();
+        setProductData(fetchedProductData);
+      } catch (error) {
+        console.log("Error fetching Store Data: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleNavigation = (id: number) => {
     navigate(`/product/${id}`);
   };
 
+  if (loading) return <center>Loading ...</center>;
   return (
     <div>
       <h1 className="text-shadow-2xs">Products List</h1>
       <br />
       <div className="grid grid-cols-5 gap-8">
-        {[1, 2, 3, 4, 5, 6].map((id) => (
+        {productData.map((item, index) => (
           <div
-            key={id}
-            onClick={() => handleNavigation(id)}
+            key={index}
+            onClick={() => handleNavigation(item.id)}
             className="cursor-pointer"
           >
-            <ProductItem />
+            <ProductItem productInfo={item} />
           </div>
         ))}
       </div>

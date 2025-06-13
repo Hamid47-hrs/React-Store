@@ -1,8 +1,38 @@
 export interface IProductInfo {
   id: number;
-  productImage: string;
-  productName: string;
-  productCategory: string;
-  productPrice: number;
-  productQuantity: number;
+  image: string;
+  title: string;
+  category: string;
+  price: number;
+}
+
+export interface IStoreProductInfo extends IProductInfo {
+  description: string;
+}
+
+export interface ICartProductInfo extends IStoreProductInfo {
+  quantity: number;
+}
+
+export interface IProductType extends IStoreProductInfo {
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
+
+export interface EnrichedCartProduct {
+  product: IProductInfo;
+  quantity: number;
+}
+
+export interface ICartProductInfo {
+  id: number;
+  useId: number;
+  date: string;
+  products: {
+    productId: number;
+    quantity: number;
+  }[];
+  __v: number;
 }

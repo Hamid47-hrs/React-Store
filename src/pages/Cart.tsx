@@ -1,42 +1,51 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import CartItem from "../components/CartItem";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 import SignupForm from "../components/SignupForm";
+import { API_ROUTES } from "../services/apiRoutes";
+import type {
+  ICartProductInfo,
+  EnrichedCartProduct,
+  IProductType,
+} from "../types/types";
 
 function Cart() {
-  const productInfo = [
-    {
-      id: 1,
-      productImage:
-        "https://cdn3d.iconscout.com/3d/premium/thumb/product-3d-icon-download-in-png-blend-fbx-gltf-file-formats--tag-packages-box-marketing-advertisement-pack-branding-icons-4863042.png?f=webp",
-      productName: "harry potter",
-      productCategory: "book fiction",
-      productPrice: 20.0,
-      productQuantity: 1,
-    },
-    {
-      id: 1,
-      productImage:
-        "https://cdn3d.iconscout.com/3d/premium/thumb/product-3d-icon-download-in-png-blend-fbx-gltf-file-formats--tag-packages-box-marketing-advertisement-pack-branding-icons-4863042.png?f=webp",
-      productName: "asuz H500",
-      productCategory: "device lap top",
-      productPrice: 20.0,
-      productQuantity: 1,
-    },
-    {
-      id: 1,
-      productImage:
-        "https://cdn3d.iconscout.com/3d/premium/thumb/product-3d-icon-download-in-png-blend-fbx-gltf-file-formats--tag-packages-box-marketing-advertisement-pack-branding-icons-4863042.png?f=webp",
-      productName: "Tshirt",
-      productCategory: "cloth Tshirt",
-      productPrice: 20.0,
-      productQuantity: 1,
-    },
-  ];
-
+  const [cartItems, setCartItems] = useState<EnrichedCartProduct[]>([]);
+  const [loading, setLoding] = useState(true);
   const [accepted, setAccepted] = useState(false);
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const result = await fetch(API_ROUTES.GET_SINGLE_CART_PRODUCT(1));
+        const cartData: ICartProductInfo = await result.json();
+
+        const enrichmentProducts: EnrichedCartProduct[] = await Promise.all(
+          cartData.products.map(async ({ productId, quantity }) => {
+            const productResult = await fetch(
+              API_ROUTES.GET_SINGLE_PRODUCT(productId)
+            );
+            const productData: IProductType = await productResult.json();
+
+            return { product: productData, quantity };
+          })
+        );
+
+        setCartItems(enrichmentProducts);
+      } catch (error) {
+        console.log("Error fetching Cart Data: ", error);
+      } finally {
+        setLoding(false);
+      }
+    };
+
+    fetchCartData();
+  }, []);
+
+  // !Loading ...
+  if (loading) return <center>Loading ...</center>;
 
   return (
     <div>
@@ -64,8 +73,8 @@ function Cart() {
                 <span>Total</span>
               </div>
             </div>
-            {productInfo.map((info) => (
-              <CartItem key={info.id} productInfo={info} />
+            {cartItems.map(({ product, quantity }, index) => (
+              <CartItem key={index} product={product} quantity={quantity} />
             ))}
           </div>
           <div className="p-2">
