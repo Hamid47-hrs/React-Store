@@ -6,6 +6,8 @@ import PageContainer from "./components/PageContainer";
 import PageNotFound from "./pages/PageNotFound";
 import SingleProduct from "./pages/SingleProduct";
 import Cart from "./pages/Cart";
+import AboutMe from "./pages/AboutMe";
+import ContactMe from "./pages/ContactMe";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
             <Route index path=":id" element={<SingleProduct />} />
           </Route>
           <Route path="/cart" element={<Cart />} />
+          <Route path="/about" element={<AboutMe />} />
+          <Route path="/contact" element={<ContactMe />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </PageContainer>
