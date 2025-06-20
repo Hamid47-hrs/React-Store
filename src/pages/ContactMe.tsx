@@ -48,8 +48,8 @@ function ContactMe() {
         <h1 className="font-extrabold text-4xl text-center my-20">
           Contact Me
         </h1>
-        <p className="text-2xl my-10 ">
-          Here are the platforms you can contact me with:
+        <p className="text-2xl text-center my-10">
+          Here are the platforms you can contact me with
         </p>
         <div>
           <ul className="flex justify-around mb-30">

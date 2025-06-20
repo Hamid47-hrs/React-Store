@@ -72,7 +72,7 @@ function SingleProduct() {
           </div>
           <hr className="my-5 text-zinc-200 text-shadow-lg" />
           <div className="flex items-center">
-            <CartAmount number={1} />
+            <CartAmount quantity={1} />
             <Button variant="secondary">Add To Cart</Button>
           </div>
         </div>
