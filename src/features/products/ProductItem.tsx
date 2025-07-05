@@ -1,5 +1,5 @@
-import Button from "./Button";
-import type { IStoreProductInfo } from "../types/types";
+import Button from "../../components/ui/Button";
+import type { IStoreProductInfo } from "../../types";
 
 interface productInfoProps {
   productInfo: IStoreProductInfo;
@@ -25,8 +25,8 @@ function ProductItem({ productInfo }: productInfoProps) {
           alt="product-image"
         />
       </div>
-      <div className="h-8">
-        {showTitle(productInfo.title)}
+      <div className="h-8 flex flex-col justify-start">
+        <span>{showTitle(productInfo.title)}</span>
         <span>$ {productInfo.price}</span>
       </div>
       <div className="flex flex-row-reverse">

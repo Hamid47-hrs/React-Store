@@ -1,7 +1,7 @@
 import ContactForm from "../components/ContactForm";
 import Container from "../components/Container";
 import { InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
-import GradientWaves from "../components/GradientWaves";
+import GradientWaves from "../components/ui/GradientWaves";
 
 function ContactMe() {
   return (

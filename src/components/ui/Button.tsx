@@ -25,7 +25,7 @@ function variantCheck(variant: TVariant) {
     case "success":
       return "m-4 px-4 py-3 bg-gradient-to-r from-lime-500 to-emerald-600 text-white rounded-xl shadow-lg hover:shadow-xl hover:bg-gradient-to-r hover:from-lime-600 hover:to-emerald-800 cursor-pointer";
     case "warning":
-      return "bg-amber-400 py-2 px-3 rounded cursor-pointer hover:shadow-lg hover:bg-amber-600";
+      return "m-4 px-4 py-3 rounded-xl shadow-lg bg-amber-400 cursor-pointer hover:shadow-lg hover:bg-amber-600";
     case "danger":
       return "bg-red-400 py-2 px-3 rounded cursor-pointer hover:shadow-lg hover:bg-red-600";
     default:

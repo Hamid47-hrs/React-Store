@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import ProductItem from "../components/ProductItem";
+import ProductItem from "./ProductItem";
 import { useEffect, useState } from "react";
-import type { IProductType } from "../types/types";
-import { API_ROUTES } from "../services/apiRoutes";
-import Loading from "../components/Loading";
+import type { IProductType } from "../../types";
+import { API_ROUTES } from "../../services/apiRoutes";
+import Loading from "../../components/ui/Loading";
 
-function Store() {
+function ProductList() {
   const [productData, setProductData] = useState<IProductType[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -50,4 +50,4 @@ function Store() {
   );
 }
 
-export default Store;
+export default ProductList;

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
-import CartItem from "../components/CartItem";
-import Button from "../components/Button";
-import SignupForm from "../components/SignupForm";
-import { API_ROUTES } from "../services/apiRoutes";
+import CartItem from "./CartItem";
+import Button from "../../components/ui/Button";
+import SignupForm from "../../components/SignupForm";
+import { API_ROUTES } from "../../services/apiRoutes";
 import type {
   ICartProductInfo,
   EnrichedCartProduct,
   IProductType,
-} from "../types/types";
-import Loading from "../components/Loading";
+} from "../../types";
+import Loading from "../../components/ui/Loading";
 
 function Cart() {
   const [cartItems, setCartItems] = useState<EnrichedCartProduct[]>([]);

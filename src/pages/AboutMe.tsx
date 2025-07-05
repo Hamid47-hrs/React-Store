@@ -1,6 +1,6 @@
 import Container from "../components/Container";
 import AboutMeImg from "../assets/images.png";
-import GradientWaves from "../components/GradientWaves";
+import GradientWaves from "../components/ui/GradientWaves";
 function AboutMe() {
   return (
     <Container>

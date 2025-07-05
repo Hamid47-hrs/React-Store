@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import CartAmount from "./CartAmount";
-import ProductInfo from "./ProductInfo";
-import type { EnrichedCartProduct } from "../types/types";
+import ProductInfo from "../products/ProductInfo";
+import type { EnrichedCartProduct } from "../../types";
 
 interface productInfoProps {
   product: EnrichedCartProduct["product"];

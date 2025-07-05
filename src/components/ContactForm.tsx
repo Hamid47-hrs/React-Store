@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "./ui/Button";
 import Envelop from "../assets/envelope_vector.png";
 function ContactForm() {
   return (
