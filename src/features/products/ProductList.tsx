@@ -1,11 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import ProductItem from "./ProductItem";
 import { useEffect, useState } from "react";
-import type { IProductType } from "../../types";
+import type { IProductType, IStoreProductInfo } from "../../types";
 import { API_ROUTES } from "../../services/apiRoutes";
 import Loading from "../../components/ui/Loading";
 
-function ProductList() {
+interface Props {
+  onAddToCart: (product: IStoreProductInfo) => void;
+}
+
+function ProductList({ onAddToCart }: Props) {
   const [productData, setProductData] = useState<IProductType[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -42,7 +46,7 @@ function ProductList() {
             onClick={() => handleNavigation(item.id)}
             className="cursor-pointer"
           >
-            <ProductItem productInfo={item} />
+            <ProductItem productInfo={item} onAddToCart={onAddToCart} />
           </div>
         ))}
       </div>

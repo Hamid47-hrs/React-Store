@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import ColorPicker from "../../components/ui/ColorPicker";
 import ModelPicker from "../../components/ui/ModelPicker";
 import Button from "../../components/ui/Button";
-import type { IProductType } from "../../types";
+import type { IProductType, IStoreProductInfo } from "../../types";
 import { API_ROUTES } from "../../services/apiRoutes";
 
-function SingleProduct() {
+interface Props {
+  onAddToCart: (product: IStoreProductInfo) => void;
+}
+
+function SingleProduct({ onAddToCart }: Props) {
   const params = useParams();
   const [added, setAdded] = useState(false);
   const [singleProductData, setSingleProductData] = useState<IProductType>({
@@ -81,6 +85,7 @@ function SingleProduct() {
               onClick={(e) => {
                 e.stopPropagation();
                 setAdded(true);
+                onAddToCart(singleProductData);
               }}
             >
               {added ? "Added" : "Add To Cart"}

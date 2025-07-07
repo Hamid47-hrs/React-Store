@@ -10,10 +10,6 @@ export interface IStoreProductInfo extends IProductInfo {
   description: string;
 }
 
-export interface ICartProductInfo extends IStoreProductInfo {
-  quantity: number;
-}
-
 export interface IProductType extends IStoreProductInfo {
   rating: {
     rate: number;
