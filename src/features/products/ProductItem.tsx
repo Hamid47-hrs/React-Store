@@ -1,12 +1,11 @@
 import Button from "../../components/ui/Button";
-import type { IStoreProductInfo } from "../../types";
-import { updateCart } from "../../services/cartServices";
+import type { IProductInfo } from "../../types";
+import { useCart } from "../../context/cart/useCart";
 interface productInfoProps {
-  productInfo: IStoreProductInfo;
-  onAddToCart: (product: IStoreProductInfo) => void;
+  productInfo: IProductInfo;
 }
 
-function ProductItem({ productInfo, onAddToCart }: productInfoProps) {
+function ProductItem({ productInfo }: productInfoProps) {
   function showTitle(text: string, wordsLimit = 4) {
     const words = text.split(" ");
     const truncated =
@@ -16,19 +15,10 @@ function ProductItem({ productInfo, onAddToCart }: productInfoProps) {
 
     return <h2 className="m-2">{truncated}</h2>;
   }
+  const { addToCart } = useCart();
 
-  const handleAddToCart = async () => {
-    try {
-      const cartId = 1;
-      const userId = 1;
-
-      const updatedCart = await updateCart(cartId, userId, [productInfo]);
-      if (updatedCart) {
-        onAddToCart(productInfo);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const handleAddToCart = () => {
+    addToCart(productInfo);
   };
 
   return (

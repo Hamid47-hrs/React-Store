@@ -3,14 +3,11 @@ import { useEffect, useState } from "react";
 import ColorPicker from "../../components/ui/ColorPicker";
 import ModelPicker from "../../components/ui/ModelPicker";
 import Button from "../../components/ui/Button";
-import type { IProductType, IStoreProductInfo } from "../../types";
+import type { IProductType } from "../../types";
 import { API_ROUTES } from "../../services/apiRoutes";
+import { useCart } from "../../context/cart/useCart";
 
-interface Props {
-  onAddToCart: (product: IStoreProductInfo) => void;
-}
-
-function SingleProduct({ onAddToCart }: Props) {
+function SingleProduct() {
   const params = useParams();
   const [added, setAdded] = useState(false);
   const [singleProductData, setSingleProductData] = useState<IProductType>({
@@ -25,6 +22,7 @@ function SingleProduct({ onAddToCart }: Props) {
       count: 0,
     },
   });
+  const { addToCart } = useCart();
   const colors = ["#f87171", "#60a5fa", "#34d399", "#facc15", "#a78bfa"];
   const models = ["A", "B", "C", "D"];
 
@@ -39,12 +37,18 @@ function SingleProduct({ onAddToCart }: Props) {
     fetchData();
   }, [params.id]);
 
+  const handleAddToCart = () => {
+    addToCart(singleProductData);
+  };
+
   return (
     <div>
       <div className="mb-7">
         <span>
-          Store \ {singleProductData.category.toUpperCase()} \{" "}
-          {singleProductData.title}
+          {singleProductData
+            ? `Store / ${singleProductData.category.toUpperCase()} /
+          ${singleProductData.title}`
+            : null}
         </span>
       </div>
       <div className="flex flex-wrap md:flex-nowrap gap-10">
@@ -85,7 +89,7 @@ function SingleProduct({ onAddToCart }: Props) {
               onClick={(e) => {
                 e.stopPropagation();
                 setAdded(true);
-                onAddToCart(singleProductData);
+                handleAddToCart();
               }}
             >
               {added ? "Added" : "Add To Cart"}

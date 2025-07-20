@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import Container from "./Container";
 import { ShoppingCart, User } from "lucide-react";
+import { useCart } from "../context/cart/useCart";
 
-interface Props {
-  totalItems: number;
-}
+function Navbar() {
+  const { cartItems } = useCart();
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-function Navbar({ totalItems }: Props) {
   return (
     <header className="bg-gradient-to-r from-pink-500 to-purple-600 shadow-lg text-white sticky top-0 z-50">
       <Container>

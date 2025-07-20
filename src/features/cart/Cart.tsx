@@ -4,65 +4,29 @@ import { ShoppingBag } from "lucide-react";
 import CartItem from "./CartItem";
 import Button from "../../components/ui/Button";
 import SignupForm from "../../components/SignupForm";
-import { API_ROUTES } from "../../services/apiRoutes";
-import type {
-  ICartProductInfo,
-  EnrichedCartProduct,
-  IProductType,
-} from "../../types";
+import { useCart } from "../../context/cart/useCart";
 import Loading from "../../components/ui/Loading";
 
 function Cart() {
-  const [cartItems, setCartItems] = useState<EnrichedCartProduct[]>([]);
   const [loading, setLoding] = useState(true);
   const [accepted, setAccepted] = useState(false);
 
-  useEffect(() => {
-    const fetchCartData = async () => {
-      try {
-        const result = await fetch(API_ROUTES.GET_SINGLE_CART_PRODUCT(1));
-        const cartData: ICartProductInfo = await result.json();
+  const { cartItems, updateQuantity, removeFromCart } = useCart();
 
-        const enrichmentProducts: EnrichedCartProduct[] = await Promise.all(
-          cartData.products.map(async ({ productId, quantity }) => {
-            const productResult = await fetch(
-              API_ROUTES.GET_SINGLE_PRODUCT(productId)
-            );
-            const productData: IProductType = await productResult.json();
+  const TOTAL_DISCOUNT = 20;
 
-            return { product: productData, quantity };
-          })
-        );
-
-        setCartItems(enrichmentProducts);
-      } catch (error) {
-        console.log("Error fetching Cart Data: ", error);
-      } finally {
-        setLoding(false);
-      }
-    };
-
-    fetchCartData();
-  }, []);
-
-  const handleQuantityChange = (productId: number, delta: number) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.product.id === productId
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
-  };
-
-  const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.quantity * item.product.price,
+    (acc, curr) => acc + curr.product.price * curr.quantity,
     0
   );
 
-  const totalDiscount = 20;
-  const finalPrice = totalPrice - totalDiscount;
+  const finalPrice = totalPrice - TOTAL_DISCOUNT;
+
+  useEffect(() => {
+    if (cartItems.length > 0 || cartItems.length === 0) {
+      setLoding(false);
+    }
+  }, [cartItems]);
 
   // !Loading ...
   if (loading) return <Loading />;
@@ -93,16 +57,21 @@ function Cart() {
                 <span>Total</span>
               </div>
             </div>
-            {cartItems.map(({ product, quantity }, index) => (
-              <CartItem
-                key={index}
-                product={product}
-                quantity={quantity}
-                onQuantityChange={(delta) =>
-                  handleQuantityChange(product.id, delta)
-                }
-              />
-            ))}
+            {cartItems.length === 0 ? (
+              <p>Your cart is Empty</p>
+            ) : (
+              cartItems.map((product, index) => (
+                <CartItem
+                  key={index}
+                  item={product}
+                  quantity={product.quantity}
+                  onQuantityChange={(newQuantity) =>
+                    updateQuantity(product.product.id, newQuantity)
+                  }
+                  onRemove={() => removeFromCart(product.product.id)}
+                />
+              ))
+            )}
           </div>
           <div className="p-2">
             <SignupForm />
@@ -115,7 +84,9 @@ function Cart() {
           <div className="flex flex-col gap-5">
             <div className="grid grid-cols-3">
               <span>Total Quantity : </span>
-              <span className="text-gray-500">{totalQuantity} items</span>
+              <span className="text-gray-500">
+                {cartItems.reduce((acc, item) => acc + item.quantity, 0)} items
+              </span>
             </div>
             <div className="grid grid-cols-3">
               <span>Total Price : </span>
@@ -123,7 +94,7 @@ function Cart() {
             </div>
             <div className="grid grid-cols-3">
               <span>Total Discount : </span>
-              <span className="text-gray-500">$ {totalDiscount}</span>
+              <span className="text-gray-500">$ {TOTAL_DISCOUNT}</span>
             </div>
             <div className="flex justify-between p-5">
               <span className="font-bold text-lg">Final Price : </span>
