@@ -4,13 +4,10 @@ export interface IProductInfo {
   title: string;
   category: string;
   price: number;
-}
-
-export interface IStoreProductInfo extends IProductInfo {
   description: string;
 }
 
-export interface IProductType extends IStoreProductInfo {
+export interface IProductType extends IProductInfo {
   rating: {
     rate: number;
     count: number;
@@ -24,7 +21,7 @@ export interface EnrichedCartProduct {
 
 export interface ICartProductInfo {
   id: number;
-  useId: number;
+  userId: number;
   date: string;
   products: {
     productId: number;

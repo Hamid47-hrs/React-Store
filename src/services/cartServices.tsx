@@ -4,12 +4,8 @@ export const updateCart = async (
   cartId: number,
   userId: number,
   products: {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
+    productId: number;
+    quantity: number;
   }[]
 ) => {
   const response = await fetch(API_ROUTES.ADD_SINGLE_CART_PRODUCT(cartId), {

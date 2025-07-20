@@ -6,6 +6,8 @@ export const API_ROUTES = {
   GET_CART_PRODUCTS: `${BASE_URL}/carts`,
   GET_SINGLE_CART_PRODUCT: (id: number | string) => `${BASE_URL}/carts/${id}`,
   ADD_SINGLE_CART_PRODUCT: (id: number | string) => `${BASE_URL}carts/${id}`,
+  REMOVE_SINGLE_CART_PRODUCT: (id: number | string) =>
+    `${BASE_URL}/carts/${id}`,
   GET_ALL_USSERS: `${BASE_URL}/users`,
   GET_SINGLE_USER: (id: number | string) => `${BASE_URL}/users/${id}`,
 };
