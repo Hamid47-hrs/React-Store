@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import type { EnrichedCartProduct, IProductInfo } from "../../types";
 import { API_ROUTES } from "../../services/apiRoutes";
 

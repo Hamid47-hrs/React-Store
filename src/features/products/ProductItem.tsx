@@ -1,6 +1,8 @@
 import Button from "../../components/ui/Button";
 import type { IProductInfo } from "../../types";
 import { useCart } from "../../context/cart/useCart";
+import { useWishList } from "../../context/wishlist/useWishList";
+import { Heart } from "lucide-react";
 interface productInfoProps {
   productInfo: IProductInfo;
 }
@@ -16,9 +18,14 @@ function ProductItem({ productInfo }: productInfoProps) {
     return <h2 className="m-2">{truncated}</h2>;
   }
   const { addToCart } = useCart();
+  const { addToWishList } = useWishList();
 
   const handleAddToCart = () => {
     addToCart(productInfo);
+  };
+
+  const handleAddToWishList = () => {
+    addToWishList(productInfo);
   };
 
   return (
@@ -34,7 +41,14 @@ function ProductItem({ productInfo }: productInfoProps) {
         <span>{showTitle(productInfo.title)}</span>
         <span>$ {productInfo.price}</span>
       </div>
-      <div className="flex flex-row-reverse">
+      <div className="flex flex-row-reverse gap-2 items-center">
+        <Heart
+          onClick={(e) => {
+            e.stopPropagation();
+            handleAddToWishList();
+          }}
+        />
+
         <Button
           variant="primary"
           onClick={(e) => {

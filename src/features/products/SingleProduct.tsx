@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import ColorPicker from "../../components/ui/ColorPicker";
 import ModelPicker from "../../components/ui/ModelPicker";
 import Button from "../../components/ui/Button";
-import type { IProductType } from "../../types";
+import type { IProductType, IProductInfo } from "../../types";
+import { extractProductInfo } from "../../utils/extractProductInfo";
 import { API_ROUTES } from "../../services/apiRoutes";
 import { useCart } from "../../context/cart/useCart";
+import { useWishList } from "../../context/wishlist/useWishList";
+import { Heart } from "lucide-react";
 
 function SingleProduct() {
-  const params = useParams();
+  const { id } = useParams();
   const [added, setAdded] = useState(false);
   const [singleProductData, setSingleProductData] = useState<IProductType>({
     id: 0,
@@ -22,23 +25,41 @@ function SingleProduct() {
       count: 0,
     },
   });
+  const [productInfo, setProductInfo] = useState<IProductInfo>({
+    id: 0,
+    title: "",
+    price: 0,
+    description: "",
+    category: "",
+    image: "",
+  });
+
   const { addToCart } = useCart();
+  const { addToWishList } = useWishList();
+
   const colors = ["#f87171", "#60a5fa", "#34d399", "#facc15", "#a78bfa"];
   const models = ["A", "B", "C", "D"];
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!params.id) return null;
-      const result = await fetch(API_ROUTES.GET_SINGLE_PRODUCT(params.id));
-      const fetchedProductData = await result.json();
+      if (!id) return null;
+      const result = await fetch(API_ROUTES.GET_SINGLE_PRODUCT(id));
+      const fetchedProductData: IProductType = await result.json();
       setSingleProductData(fetchedProductData);
+
+      const prodInfo = extractProductInfo(fetchedProductData);
+      setProductInfo(prodInfo);
     };
 
     fetchData();
-  }, [params.id]);
+  }, [id]);
 
   const handleAddToCart = () => {
     addToCart(singleProductData);
+  };
+
+  const handleAddToWishList = () => {
+    addToWishList(productInfo);
   };
 
   return (
@@ -66,6 +87,10 @@ function SingleProduct() {
           <img src={singleProductData.image} alt="" />
         </div>
         <div className="w-full md:w-1/2 p-3">
+          <div className="flex gap-3 mb-5">
+            <p>Add to Wish List</p>
+            <Heart className="cursor-pointer" onClick={handleAddToWishList} />
+          </div>
           <div>
             <h1 className="text-2xl font-medium mb-5">
               {singleProductData.title}

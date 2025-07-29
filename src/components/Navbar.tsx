@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Container from "./Container";
-import { ShoppingCart, User } from "lucide-react";
+import { Heart, ShoppingCart, User } from "lucide-react";
 import { useCart } from "../context/cart/useCart";
 
 function Navbar() {
@@ -47,6 +47,9 @@ function Navbar() {
             </Link>
             <Link to="/account" className="hover:text-yellow-300 transition">
               <User className="w-6 h-6" />
+            </Link>
+            <Link to="/wishlist" className="hover:text-yellow-300 transition">
+              <Heart className="w-6 h-6" />
             </Link>
           </div>
         </div>

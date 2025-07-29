@@ -9,25 +9,30 @@ import AboutMe from "./pages/AboutMe";
 import ContactMe from "./pages/ContactMe";
 import ProductList from "./features/products/ProductList";
 import { CartProvider } from "./context/cart/CartContext";
+import { WishListProvider } from "./context/wishlist/WishListContext";
+import WishList from "./pages/WishList";
 
 function App() {
   return (
     <>
       <CartProvider>
-        <Navbar />
-        <PageContainer>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/store" element={<ProductList />} />
-            <Route path="/product">
-              <Route index path=":id" element={<SingleProduct />} />
-            </Route>
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/about" element={<AboutMe />} />
-            <Route path="/contact" element={<ContactMe />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </PageContainer>
+        <WishListProvider>
+          <Navbar />
+          <PageContainer>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/store" element={<ProductList />} />
+              <Route path="/product">
+                <Route index path=":id" element={<SingleProduct />} />
+              </Route>
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/about" element={<AboutMe />} />
+              <Route path="/contact" element={<ContactMe />} />
+              <Route path="/wishlist" element={<WishList />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </PageContainer>
+        </WishListProvider>
       </CartProvider>
     </>
   );
