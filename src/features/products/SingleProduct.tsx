@@ -1,14 +1,14 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Heart } from "lucide-react";
+import type { IProductType, IProductInfo } from "../../types";
 import ColorPicker from "../../components/ui/ColorPicker";
 import ModelPicker from "../../components/ui/ModelPicker";
 import Button from "../../components/ui/Button";
-import type { IProductType, IProductInfo } from "../../types";
 import { extractProductInfo } from "../../utils/extractProductInfo";
 import { API_ROUTES } from "../../services/apiRoutes";
 import { useCart } from "../../context/cart/useCart";
 import { useWishList } from "../../context/wishlist/useWishList";
-import { Heart } from "lucide-react";
 
 function SingleProduct() {
   const { id } = useParams();
@@ -35,7 +35,9 @@ function SingleProduct() {
   });
 
   const { addToCart } = useCart();
-  const { addToWishList } = useWishList();
+  const { toggleWishList, isInWishList } = useWishList();
+
+  const inWishList = isInWishList(productInfo.id);
 
   const colors = ["#f87171", "#60a5fa", "#34d399", "#facc15", "#a78bfa"];
   const models = ["A", "B", "C", "D"];
@@ -59,7 +61,7 @@ function SingleProduct() {
   };
 
   const handleAddToWishList = () => {
-    addToWishList(productInfo);
+    toggleWishList(productInfo);
   };
 
   return (
@@ -89,7 +91,12 @@ function SingleProduct() {
         <div className="w-full md:w-1/2 p-3">
           <div className="flex gap-3 mb-5">
             <p>Add to Wish List</p>
-            <Heart className="cursor-pointer" onClick={handleAddToWishList} />
+            <Heart
+              fill={inWishList ? "red" : "white"}
+              color={inWishList ? "red" : "black"}
+              className="cursor-pointer"
+              onClick={handleAddToWishList}
+            />
           </div>
           <div>
             <h1 className="text-2xl font-medium mb-5">

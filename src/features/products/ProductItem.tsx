@@ -18,14 +18,16 @@ function ProductItem({ productInfo }: productInfoProps) {
     return <h2 className="m-2">{truncated}</h2>;
   }
   const { addToCart } = useCart();
-  const { addToWishList } = useWishList();
+  const { toggleWishList, isInWishList } = useWishList();
+
+  const inWishList = isInWishList(productInfo.id);
 
   const handleAddToCart = () => {
     addToCart(productInfo);
   };
 
   const handleAddToWishList = () => {
-    addToWishList(productInfo);
+    toggleWishList(productInfo);
   };
 
   return (
@@ -43,6 +45,8 @@ function ProductItem({ productInfo }: productInfoProps) {
       </div>
       <div className="flex flex-row-reverse gap-2 items-center">
         <Heart
+          color={inWishList ? "red" : "black"}
+          fill={inWishList ? "red" : "white"}
           onClick={(e) => {
             e.stopPropagation();
             handleAddToWishList();
