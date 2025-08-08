@@ -29,3 +29,15 @@ export interface ICartProductInfo {
   }[];
   __v: number;
 }
+
+export interface IOrderItem {
+  productId: number;
+  quantity: number;
+}
+
+export interface IOrder {
+  id: string;
+  userId: string;
+  products: IOrderItem[];
+  date: string;
+}
