@@ -14,11 +14,23 @@ function Settings() {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    // ! این خطا از کجاست و برای چیه؟؟
+    const { name, value, type } = e.target;
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   [name]: type === "checkbox" ? checked : value,
+    // }));
+    if (type === "checkbox") {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: (e.target as HTMLInputElement).checked,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
