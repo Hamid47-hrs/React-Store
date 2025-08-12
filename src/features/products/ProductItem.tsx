@@ -31,7 +31,7 @@ function ProductItem({ productInfo }: productInfoProps) {
   };
 
   return (
-    <div className="shadow-sm rounded-md p-3">
+    <div className="shadow-sm rounded-md p-3 bg-gradient-to-tr from-indigo-200 to-purple-50">
       <div className="flex justify-center w-45 h-45">
         <img
           className="rounded-2xl"
@@ -46,7 +46,7 @@ function ProductItem({ productInfo }: productInfoProps) {
       <div className="flex flex-row-reverse gap-2 items-center">
         <Heart
           color={inWishList ? "red" : "black"}
-          fill={inWishList ? "red" : "white"}
+          fill={inWishList ? "red" : "transparent"}
           onClick={(e) => {
             e.stopPropagation();
             handleAddToWishList();
