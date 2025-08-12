@@ -8,7 +8,7 @@ import DashboardLayout from "./features/dashboard/DashboardLayout.tsx";
 import ProductDashboard from "./features/dashboard/ProductDashboard.tsx";
 import OrdersDashboard from "./features/dashboard/OrdersDashboard.tsx";
 import Settings from "./features/dashboard/Settings.tsx";
-import Home from "./pages/Home";
+import Home from "./features/home/Home.tsx";
 import PageNotFound from "./pages/PageNotFound";
 import AboutMe from "./pages/AboutMe";
 import ContactMe from "./pages/ContactMe";
@@ -17,6 +17,7 @@ import Navbar from "./components/Navbar";
 import PageContainer from "./components/PageContainer";
 import Loading from "./components/ui/Loading";
 import Login from "./pages/Login.tsx";
+import Footer from "./components/Footer.tsx";
 // import ProductList from "./features/products/ProductList";
 
 const Dashboard = lazy(() => import("./features/dashboard/Dashboard.tsx"));
@@ -61,6 +62,7 @@ function App() {
               </Routes>
             </Suspense>
           </PageContainer>
+          <Footer />
         </WishListProvider>
       </CartProvider>
     </>
