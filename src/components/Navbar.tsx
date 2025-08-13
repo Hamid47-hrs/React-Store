@@ -45,7 +45,7 @@ function Navbar() {
                 </span>
               )}
             </Link>
-            <Link to="/account" className="hover:text-yellow-300 transition">
+            <Link to="/dashboard" className="hover:text-yellow-300 transition">
               <User className="w-6 h-6" />
             </Link>
             <Link to="/wishlist" className="hover:text-yellow-300 transition">

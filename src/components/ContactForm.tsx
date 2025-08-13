@@ -13,7 +13,7 @@ function ContactForm() {
           </label>
           <input
             type="text"
-            className="w-xs border border-gray-300 focus:outline-none rounded-4xl p-2 bg-gray-50"
+            className="w-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-4xl p-2 bg-gray-50"
           />
         </div>
         <div>
@@ -22,14 +22,14 @@ function ContactForm() {
           </label>
           <input
             type="text"
-            className="w-xs border border-gray-300 focus:outline-none rounded-4xl p-2 bg-gray-50"
+            className="w-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-4xl p-2 bg-gray-50"
           />
         </div>
         <div>
           <label className="block text-md mb-1 text-gray-700 mt-7">
             Your Message :
           </label>
-          <textarea className="w-xs h-50 border border-gray-300 focus:outline-none rounded-2xl p-2 bg-gray-50"></textarea>
+          <textarea className="w-xs h-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-2xl p-2 bg-gray-50"></textarea>
         </div>
         <Button variant="success">SEND MESSAGE</Button>
       </div>

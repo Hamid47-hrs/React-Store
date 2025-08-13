@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import type { IProductInfo } from "../../types";
 import { API_ROUTES } from "../../services/apiRoutes";
 import EditProductModal from "../../components/EditProductModal";
+import Loading from "../../components/ui/Loading";
 
 function ProductDashboard() {
   const [products, setProducts] = useState<IProductInfo[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<IProductInfo | null>(
     null
   );
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -16,6 +18,7 @@ function ProductDashboard() {
         const result = await fetch(API_ROUTES.GET_ALL_PRODUCTS);
         const fetchedProductData = await result.json();
         setProducts(fetchedProductData);
+        setLoading(false);
       } catch (err) {
         console.error("Error: ", err);
       }
@@ -41,6 +44,8 @@ function ProductDashboard() {
   const handleSave = () => {
     return null;
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div>

@@ -60,7 +60,7 @@ function CustomerReviews() {
                 style={{ minWidth: "100%" }}
                 className="w-full md:w-1/4 flex-shrink-0 px-4"
               >
-                <div className="bg-white rounded-xl shadow-md p-10 m-3 relative h-30 max-w-5xl flex flex-col justify-between">
+                <div className="bg-white rounded-xl shadow-md p-10 m-3 relative max-w-5xl flex flex-col justify-between">
                   <p className="text-gray-700 text-3xl">{review.text}</p>
                   <span className="absolute bottom-3 left-4 text-sm font-semibold text-gray-500 flex justify-end">
                     <Quote

@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/cart/CartContext";
 import { WishListProvider } from "./context/wishlist/WishListContext";
 import SingleProduct from "./features/products/SingleProduct";
@@ -16,19 +16,16 @@ import WishList from "./pages/WishList";
 import Navbar from "./components/Navbar";
 import PageContainer from "./components/PageContainer";
 import Loading from "./components/ui/Loading";
-import Login from "./pages/Login.tsx";
+import Login from "./features/Auth/Login.tsx";
 import Footer from "./components/Footer.tsx";
+import Register from "./features/Auth/Register.tsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
 // import ProductList from "./features/products/ProductList";
 
 const Dashboard = lazy(() => import("./features/dashboard/Dashboard.tsx"));
 const ProductList = lazy(() => import("./features/products/ProductList.tsx"));
 
 function App() {
-  const [isLoggedIn, setIsloggedIn] = useState(true);
-
-  useEffect(() => {
-    setIsloggedIn(true);
-  }, []);
   return (
     <>
       <CartProvider>
@@ -41,7 +38,9 @@ function App() {
                 <Route
                   path="/dashboard"
                   element={
-                    isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />
+                    <ProtectedRoutes>
+                      <DashboardLayout />
+                    </ProtectedRoutes>
                   }
                 >
                   <Route path="" element={<Dashboard />} />
@@ -49,7 +48,6 @@ function App() {
                   <Route path="orders" element={<OrdersDashboard />} />
                   <Route path="settings" element={<Settings />} />
                 </Route>
-                <Route path="/login" element={<Login />} />
                 <Route path="/store" element={<ProductList />} />
                 <Route path="/product">
                   <Route index path=":id" element={<SingleProduct />} />
@@ -58,6 +56,10 @@ function App() {
                 <Route path="/about" element={<AboutMe />} />
                 <Route path="/contact" element={<ContactMe />} />
                 <Route path="/wishlist" element={<WishList />} />
+
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+
                 <Route path="*" element={<PageNotFound />} />
               </Routes>
             </Suspense>
