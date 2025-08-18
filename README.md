@@ -121,3 +121,5 @@ Your contributions are most welcome! To propose changes or enhancements:
 ## License
 
 This project is licensed under the **MIT License**. Feel free to use, modify, and distribute, with attribution.
+
+**Thank you for checking out React-Store — happy coding.**
