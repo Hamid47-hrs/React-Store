@@ -55,6 +55,7 @@ npm run preview
 
 ##  Folder Structure
 
+```
 src/
 ├── features/
 │   ├── home/                → Home page components (Hero, Categories, etc.)
@@ -67,12 +68,13 @@ src/
 ├── services/                → API route definitions and data-fetch utilities
 ├── App.tsx                  → Main app + routing setup
 └── main.tsx                 → Vite entry point
+```
 
 ##  Usage
 
-* Visit ==/== for the Home (customer-facing storefront).
-* Visit ==/login== or ==/register== for authentication.
-* Visit ==/dashboard== (only accessible after login) for the protected dashboard view.
+* Visit `/` for the Home (customer-facing storefront).
+* Visit `/login` or `/register` for authentication.
+* Visit `/dashboard` (only accessible after login) for the protected dashboard view.
 
 ##  Architecture Highlights
 
@@ -84,7 +86,38 @@ src/
 ## Routing & Protection
 
 * Uses React Router v6 for client-side navigation.
-* Authentication state is tracked via ==localStorage==, and a custom ==ProtectedRoute== wrapper redirects unauthenticated users to ==/login==.
-* Post-registration, users are programmatically redirected to the login page via ==useNavigate==.
+* Authentication state is tracked via `localStorage`, and a custom `ProtectedRoute` wrapper redirects unauthenticated users to `/login`.
+* Post-registration, users are programmatically redirected to the login page via `useNavigate`.
 
 ## Form Validation
+
+* Name Field: Allows only English letters and spaces via regex `/^[A-Za-z\s]+$/`.
+* Password Field: Requires at least 8 characters including letters, numbers, and special symbols via regex `/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/`.
+
+## State Management (Cart & Wishlist)
+
+* Implemented with React `useState`, `useEffect`, and `Context API` for global state.
+* Cart operations (add, remove, update quantity) update both UI and local storage via API calls to FakeStoreAPI endpoints.
+* Wishlist can similarly be managed using a dedicated context (similar structure available).
+
+## Future Enhancements
+
+* Integrate real backend authentication (e.g., JWT with secure cookie storage).
+* Add pagination or infinite scroll for product listing.
+* Incorporate user profile editing and order history.
+* Implement unit testing (e.g., Jest + React Testing Library).
+* Improve performance with React Query or SWR for data fetching and caching.
+
+## Contributing
+
+Your contributions are most welcome! To propose changes or enhancements:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b [featurename]`.
+3. Commit your changes.
+4. Push to your fork: `git push origin [featurename]`.
+5. Submit a Pull Request.
+
+## License
+
+This project is licensed under the **MIT License**. Feel free to use, modify, and distribute, with attribution.
